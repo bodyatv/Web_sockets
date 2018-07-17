@@ -1,0 +1,136 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+}
+
+.register_block{
+    position: absolute;
+    top: 40%;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid cornflowerblue;
+}
+.register_block form{
+    display: flex;
+    flex-direction: column;
+}
+
+.register_block  *{
+    margin: 8px;
+}
+
+.chat{
+    border: 5px solid cornflowerblue;
+    position: absolute;
+    top: 10%;
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    height: 500px;
+    justify-content: space-between;
+}
+.users{
+    width: 100%;
+    margin: 15px;
+    overflow-y: scroll;
+    border: 3px solid darkgrey;
+    padding: 5px;
+    height: 90%;
+}
+
+.dialog{
+    height: 92%;
+    width: 70%;
+    border: 3px solid darkgrey;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.dialog .prev_sms{
+    overflow-y: scroll;
+    height: 90%;
+}
+.dialog .send_sms{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin: 3px;
+}
+.dialog .send_sms textarea{
+    width: 80%;
+}
+#sms_send{
+    border:none;
+    border-radius: 5%; 
+}
+
+textarea{
+    resize: none;
+}
+.prev_sms{
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.sms{
+    width: 40%;
+    border:1px solid rgb(211, 209, 209);
+    background-color:#f1f1f1;
+    margin-left: 20px;
+    margin-top: 7px;
+    align-self: flex-end;
+}
+.sms h5{
+    margin: 5px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.sms h6{
+    font-weight: 500;
+    margin-left: 2px;
+    margin-bottom:2px;
+    margin-top: 1px;
+    font-size: 15px;
+}
+
+.color{
+    color: cornflowerblue !important;
+}
+
+.hide{
+    display: none;
+}
+
+.user h3{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
+}
+.label{
+    margin-top: 3.5px;
+    margin-right: 5px;
+    text-align: start;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.user h5{
+    margin: 0;
+}
+
+.online{
+    background-color: rgb(135, 204, 31);
+}
+.offline{
+    background-color: tomato;
+}
+.typing_sms{
+    margin-left: 25px;
+    font-size: 23px;
+    margin-top: 5px;
+}

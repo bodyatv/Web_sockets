@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="register_block">
+        <h1>Enter the chat</h1>
+            <input placeholder="Enter your name" type="text" id="name">
+            <input placeholder="Enter your nick" type="text" id="nick">
+            <input type="button" value="enter" id="info_button">
+    </div>
+
+
+    <div class="chat hide">
+        <div>
+            <ul class="users">
+            </ul>
+        </div>
+        
+        <div class="dialog">
+                <div class="prev_sms">
+             </div>
+
+                <div class="send_sms">
+                    <textarea id="message"></textarea>
+                    <input type="button" value="send" id="sms_send">
+                </div>
+        </div>
+        
+
+    </div>
+
+
+    
+</body>
+</html>
