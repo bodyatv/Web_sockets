@@ -59,6 +59,14 @@ io.on('connection',function(socket){
         io.sockets.emit('green messages');
     });
 
+    socket.on('typing',function(nickname){
+        io.sockets.emit('typing',nickname);
+    });
+
+    socket.on('not typing',function(nickname){
+        io.sockets.emit('not typing',nickname);
+    });
+
     socket.on('disconnect',function(){
         clearTimeout(timerConnect);
         messages.push({
@@ -86,6 +94,5 @@ io.on('connection',function(socket){
 
 
 app.use(express.static('public'));
-http.listen(1500,function(){
-    console.log('we listen');
+http.listen(1550,function(){
 });

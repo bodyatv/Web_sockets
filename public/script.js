@@ -9,6 +9,7 @@ window.onload=function(){
     let loginForm=document.getElementsByClassName("register_block")[0];
     let chat=document.getElementsByClassName("chat")[0];
     let usersUl=document.getElementsByClassName("users")[0];
+    let textInput=this.document.getElementById("message");
 
     let name,nick,thisConnectionStatus,typingSms,currColorEl;
     let greenMsgArr=[];
@@ -53,19 +54,25 @@ window.onload=function(){
             greenMsgArr.push(msg);
         }
     });
+     
+    socket.on('typing',function(nickname){
+        if(nick!=nickname){
+            console.log('here typing');
+            typingSms=document.createElement('div');
+            typingSms.className="typing_sms";
+            typingSms.innerHTML=`<h6>${nickname} is typing...</h6>`;
+            messagesBlock.appendChild(typingSms); 
 
-    socket.on('typing sms',function(nick){
-        console.log('we here');
-        typingSms=document.createElement('div');
-        typingSms.className="typing_sms";
-        typingSms.innerHTML=`<h6>${nick} is typing...</h6>`;
-        messagesBlock.appendChild(typingSms); 
+        }
+
     });
 
-    socket.on('no typing',function(){
-        typingSms.innerHTML="";
+    socket.on('not typing',function(nickname){
+        if(nick!=nickname){
+            typingSms.innerHTML="";
+        }
     });
-    
+
     enterButton.onclick=function(){
         loginForm.classList.add('hide');
         chat.classList.remove('hide');    
@@ -89,7 +96,16 @@ window.onload=function(){
             }
             socket.emit('new message',data);
             message.value="";
+            socket.emit('not typing',nick);
     }
+
+    textInput.onfocus=function(){
+        socket.emit('typing',nick);
+    }
+
+
+
+    
     
 };
 
