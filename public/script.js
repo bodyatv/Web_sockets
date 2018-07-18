@@ -11,6 +11,7 @@ window.onload=function(){
     let usersUl=document.getElementsByClassName("users")[0];
 
     let name,nick,thisConnectionStatus,typingSms,currColorEl;
+    let greenMsgArr=[];
 
     var socket=io.connect();
 
@@ -33,7 +34,26 @@ window.onload=function(){
                 messagesBlock.appendChild(el);
         }
     });
+
+    socket.on('green messages',function(){
+        let messagesArr=messagesBlock.childNodes;
+        for(let i=0;i<messagesArr.length;i++){
+            for(let k=0;k<greenMsgArr.length;k++){
+                if(messagesArr[i].childNodes[1].innerHTML==greenMsgArr[k].text){
+                    messagesArr[i].classList.add('green');
+                }
+            }
+        }
+        
+        
+    });
     
+    socket.on('msg nick',function(nickname,msg){
+        if(nick===nickname){
+            greenMsgArr.push(msg);
+        }
+    });
+
     socket.on('typing sms',function(nick){
         console.log('we here');
         typingSms=document.createElement('div');
@@ -70,7 +90,6 @@ window.onload=function(){
             socket.emit('new message',data);
             message.value="";
     }
-
     
 };
 

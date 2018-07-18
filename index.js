@@ -17,19 +17,19 @@ let checkMessageArr=function(messageArr){
     }
 };
 
-// let checkIfHasNick=function(msg){
-//     let nickname;
-//     if(msg.text.indexOf('@')!==-1){
-//         let start=msg.text.indexOf('@');
-//         if(msg.text.indexOf(' ')!==-1){
-//         nickname=msg.text.substring(start+1,msg.text.indexOf(' ',start));
-//         }
-//         else{
-//         nickname=msg.text.substring(start+1);
-//         }
-//         io.sockets.emit('msg nick',nickname);
-//     }
-// }
+let checkIfHasNick=function(msg){
+    let nickname;
+    if(msg.text.indexOf('@')!==-1){
+        let start=msg.text.indexOf('@');
+        if(msg.text.indexOf(' ')!==-1){
+        nickname=msg.text.substring(start+1,msg.text.indexOf(' ',start));
+        }
+        else{
+        nickname=msg.text.substring(start+1);
+        }
+        io.sockets.emit('msg nick',nickname,msg);
+    }
+}
 
 
 io.on('connection',function(socket){
@@ -40,6 +40,7 @@ io.on('connection',function(socket){
         users.push(userData);
         io.sockets.emit('all users',users);
         io.sockets.emit('all messages',messages);
+        io.sockets.emit('green messages');
         timerConnect=setTimeout(function(){
             for(let i=0;i<users.length;i++){
                 if (users[i]['nick']==userData['nick']){
@@ -54,6 +55,8 @@ io.on('connection',function(socket){
         checkMessageArr(messages);
         messages.push(msg);
         io.sockets.emit('all messages',messages);
+        checkIfHasNick(msg);
+        io.sockets.emit('green messages');
     });
 
     socket.on('disconnect',function(){
