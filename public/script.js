@@ -56,8 +56,10 @@ window.onload=function(){
     });
      
     socket.on('typing',function(nickname){
+        if(typingSms!==undefined){
+            typingSms.innerHTML='';
+        }
         if(nick!=nickname){
-            console.log('here typing');
             typingSms=document.createElement('div');
             typingSms.className="typing_sms";
             typingSms.innerHTML=`<h6>${nickname} is typing...</h6>`;
