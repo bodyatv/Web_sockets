@@ -11,10 +11,34 @@ window.onload=function(){
     let usersUl=document.getElementsByClassName("users")[0];
     let textInput=this.document.getElementById("message");
 
-    let name,nick,thisConnectionStatus,typingSms,currColorEl;
+    let name,nick,thisConnectionStatus,typingSms;
     let greenMsgArr=[];
 
     var socket=io.connect();
+
+    socket.on('nick no',function(){
+        if(chat.classList.contains('hide')){
+            alert('This nick has been taken. Please choose another one.');
+        }
+    });
+
+    socket.on('nick yes',function(){
+        if(chat.classList.contains('hide')){
+            loginForm.classList.add('hide');
+            chat.classList.remove('hide');  
+            name=userName.value||"username";
+            nick=userNick.value||"nick";
+            thisConnectionStatus="just appeared";
+            let data={
+                name: name,
+                nick: nick,
+                status: thisConnectionStatus,
+                availibility:'online'       
+            }
+    
+            socket.emit('new user',data);
+        }
+    });
 
     socket.on('all users',function(users){
         usersUl.innerHTML='';
@@ -59,6 +83,7 @@ window.onload=function(){
         if(typingSms!==undefined){
             typingSms.innerHTML='';
         }
+
         if(nick!=nickname){
             typingSms=document.createElement('div');
             typingSms.className="typing_sms";
@@ -75,20 +100,12 @@ window.onload=function(){
         }
     });
 
+    
+
     enterButton.onclick=function(){
-        loginForm.classList.add('hide');
-        chat.classList.remove('hide');    
-        name=userName.value||"username";
-        nick=userNick.value||"nick";
-        thisConnectionStatus="just appeared";
-        let data={
-            name: name,
-            nick: nick,
-            status: thisConnectionStatus,
-            availibility:'online'       
-        }
-        socket.emit('new user',data);
+        socket.emit('check nick',userNick.value);
     };
+    
 
     messageButton.onclick=function(){
             let data={

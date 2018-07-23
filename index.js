@@ -3,7 +3,7 @@ let app= express();
 const http=require("http").Server(app);
 const io=require("socket.io")(http);
 
-let messages=[],users=[];
+let messages=[],users=[],nicks=[];
 
 app.use(express.static('public'));
 
@@ -34,6 +34,20 @@ let checkIfHasNick=function(msg){
 
 io.on('connection',function(socket){
     var timerConnect,thisNick;
+
+   socket.on('check nick',function(nick){
+        for(let i=0;i<nicks.length;i++){
+            if(nick==nicks[i]){
+                io.sockets.emit('nick no');
+                return;
+            }
+        }
+        console.log('nick yes');
+        nicks.push(nick);
+        io.sockets.emit('nick yes');
+        
+   });
+
 
     socket.on('new user',function(userData){
         thisNick=userData['nick'];
